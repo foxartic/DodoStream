@@ -1,7 +1,8 @@
 import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Tabs } from 'expo-router';
+import { ScrollView } from 'react-native';
+import { FloatingBottomNav } from '@/components/navigation/FloatingBottomNav';
+import { useBottomNavAnimation } from '@/components/navigation/useBottomNavAnimation';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
@@ -16,32 +17,42 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { translateY, opacity, handleScroll } = useBottomNavAnimation();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
+    <>
+      <Tabs
+        screenOptions={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarStyle: { display: 'none' }
         }}
-      />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: 'Search',
-          headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'Home',
+          }}
+        />
+        <Tabs.Screen
+          name="search"
+          options={{
+            title: 'Search',
+          }}
+        />
+        <Tabs.Screen
+          name="downloads"
+          options={{
+            title: 'Downloads',
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: 'Settings',
+          }}
+        />
+      </Tabs>
+      <FloatingBottomNav translateY={translateY} opacity={opacity} />
+    </>
   );
 }
