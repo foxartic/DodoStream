@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ScrollHandlerContext } from './_layout';
 import { StyleSheet, ScrollView, Pressable, Switch, View as RNView } from 'react-native';
 import { View, Text } from '@/components/Themed';
 import { FontAwesome } from '@expo/vector-icons';
@@ -46,13 +47,18 @@ export default function SettingsScreen() {
   const [autoDeleteWatched, setAutoDeleteWatched] = useState(false);
   const [traktSync, setTraktSync] = useState(false);
 
+  const handleScroll = useContext(ScrollHandlerContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Settings</Text>
       </View>
 
-      <ScrollView style={styles.scrollView}>
+      <ScrollView 
+        style={styles.scrollView}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}>
         <SettingsSection title="General">
           <SettingItem
             icon="adjust"

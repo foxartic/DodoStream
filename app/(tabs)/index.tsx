@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, Alert } from 'react-native';
 import { View } from '@/components/Themed';
 import HeroSection from '@/components/movies/HeroSection';
 import MovieCarousel from '@/components/movies/MovieCarousel';
 import ContinueWatchingCarousel from '@/components/movies/ContinueWatchingCarousel';
 import { router } from 'expo-router';
+import { ScrollHandlerContext } from './_layout';
 
 // Sample data - Replace with actual API calls
 const featuredMovie = {
@@ -81,6 +82,8 @@ const continueWatchingMovies = [
 ];
 
 export default function HomeScreen() {
+  const handleScroll = useContext(ScrollHandlerContext);
+
   const handleMoviePress = (movieId: string) => {
     router.push(`/movie-details?id=${movieId}`);
   };
@@ -97,7 +100,10 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView 
+        style={styles.scrollView}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}>
         <HeroSection
           movie={featuredMovie}
           onPlayPress={handlePlayPress}

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ScrollHandlerContext } from './_layout';
 import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Text } from '@/components/Themed';
 import { Ionicons } from '@expo/vector-icons';
@@ -35,6 +36,7 @@ const allMovies = [
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredMovies, setFilteredMovies] = useState(allMovies);
+  const handleScroll = useContext(ScrollHandlerContext);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
@@ -93,6 +95,8 @@ export default function SearchScreen() {
         numColumns={2}
         contentContainerStyle={styles.movieGrid}
         ListEmptyComponent={EmptyState}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       />
     </View>
   );

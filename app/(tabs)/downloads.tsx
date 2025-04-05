@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ScrollHandlerContext } from './_layout';
 import { StyleSheet, Pressable, Image, FlatList, Switch, Dimensions } from 'react-native';
 import { View, Text } from '@/components/Themed';
 import { FontAwesome } from '@expo/vector-icons';
@@ -18,6 +19,7 @@ type DownloadedMovie = {
 
 export default function DownloadsScreen() {
   const [smartDownloads, setSmartDownloads] = useState(false);
+  const handleScroll = useContext(ScrollHandlerContext);
   const [downloads, setDownloads] = useState<DownloadedMovie[]>([
     {
       id: '1',
@@ -107,6 +109,8 @@ export default function DownloadsScreen() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.downloadsList}
         ListEmptyComponent={EmptyState}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       />
     </View>
   );

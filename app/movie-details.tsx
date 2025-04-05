@@ -301,19 +301,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   actionButtons: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginTop: 16,
     backgroundColor: 'transparent',
   },
   playButton: {
-    flex: 2,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
     paddingVertical: 16,
     borderRadius: 8,
-    marginRight: 8,
+    marginBottom: 12,
   },
   playButtonText: {
     marginLeft: 8,
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   downloadButton: {
-    flex: 1,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
